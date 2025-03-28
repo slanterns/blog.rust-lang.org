@@ -1,7 +1,9 @@
 +++
 title = "Rust Blog"
-index_title = "The Rust Programming Language Blog"
 description = "Empowering everyone to build reliable and efficient software."
+sort_by = "date"
+[extra]
+index_title = "The Rust Programming Language Blog"
 index_html = """
 This is the <b>main Rust blog</b>. \
 <a href="https://www.rust-lang.org/governance/">Rust teams</a> \
