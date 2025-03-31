@@ -5,14 +5,42 @@ use toml::value::Date;
 /// The front matter of a markdown blog post.
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 pub struct FrontMatter {
-    pub layout: String,
+    /// Deprecated. The plan was probably to have more specialized templates
+    /// at some point. That didn't materialize, all posts are rendered with the
+    /// same template. Once we migrate to Zola, this can be achieved with the
+    /// "template" key.
+    #[serde(default, skip_serializing)]
+    pub layout: Option<String>,
     pub date: Date,
+    #[serde(default)]
+    pub path: String,
     pub title: String,
-    pub author: String,
+    /// Deprecated. Zola uses an "authors" key with an array instead. The front
+    /// matter tests can do the migration automatically.
+    #[serde(default, skip_serializing)]
+    pub author: Option<String>,
+    #[serde(default)]
+    pub authors: Vec<String>,
     pub description: Option<String>,
     pub team: Option<String>,
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub release: bool,
+    #[serde(default, skip_serializing_if = "Extra::is_empty")]
+    pub extra: Extra,
+}
+
+#[derive(Debug, Default, PartialEq, Serialize, Deserialize)]
+pub struct Extra {
+    pub team: Option<String>,
+    pub team_url: Option<String>,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub release: bool,
+}
+
+impl Extra {
+    fn is_empty(&self) -> bool {
+        self.team.is_none() && !self.release
+    }
 }
 
 /// Extracts the front matter from a markdown file.
@@ -32,8 +60,38 @@ pub fn parse(markdown: &str) -> eyre::Result<(FrontMatter, &str)> {
 }
 
 /// Normalizes the front matter of a markdown file.
-pub fn normalize(markdown: &str) -> eyre::Result<String> {
-    let (front_matter, content) = parse(markdown)?;
+pub fn normalize(markdown: &str, slug: &str) -> eyre::Result<String> {
+    let (mut front_matter, content) = parse(markdown)?;
+
+    // migrate "author" to "authors" key
+    if let Some(author) = front_matter.author.take() {
+        front_matter.authors = vec![author];
+    }
+    // migrate "team" to "extra" section
+    if let Some(team) = front_matter.team.take() {
+        let (team, url) = team.split_once(" <").unwrap();
+        let url = url.strip_suffix('>').unwrap();
+        front_matter.extra.team = Some(team.into());
+        front_matter.extra.team_url = Some(url.into());
+    }
+    // migrate "release" to "extra" section
+    if front_matter.release {
+        front_matter.release = false;
+        front_matter.extra.release = true;
+    }
+    // migrate "date" to "path" key
+    front_matter.path = format!(
+        "{year}/{month:02}/{day:02}/{slug}.html",
+        year = front_matter.date.year,
+        month = front_matter.date.month,
+        day = front_matter.date.day,
+        // remove @ suffix, used for disambiguation only in the source
+        slug = slug.split_once('@').map(|(s, _)| s).unwrap_or(slug),
+    );
+
+    if front_matter.extra.team.is_some() ^ front_matter.extra.team_url.is_some() {
+        bail!("extra.team and extra.team_url must always come in a pair");
+    }
 
     Ok(format!(
         "\
@@ -62,8 +120,10 @@ mod tests {
             .filter(|p| p.is_file() && p.file_name() != Some("_index.md".as_ref()));
 
         for post in posts {
+            let slug = post.file_stem().unwrap().to_str().unwrap();
+
             let content = fs::read_to_string(&post).unwrap();
-            let normalized = normalize(&content).unwrap_or_else(|err| {
+            let normalized = normalize(&content, slug).unwrap_or_else(|err| {
                 panic!("failed to normalize {:?}: {err}", post.file_name().unwrap());
             });
 
@@ -98,7 +158,7 @@ The post {post} has abnormal front matter.
     │                                                                          │
     │                You can fix this automatically by running:                │
     │                                                                          │
-    │      FIX_FRONT_MATTER=1 cargo test --all front_matter_is_normalized      │
+    │              FIX_FRONT_MATTER=1 cargo test -p front_matter               │
     │                                                                          │
     └──────────────────────────────────────────────────────────────────────────┘
 ",
