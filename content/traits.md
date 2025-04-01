@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2015-05-11
+path = "2015/05/11/traits.html"
 title = "Abstraction without overhead: traits in Rust"
-author = "Aaron Turon"
+authors = ["Aaron Turon"]
 description = "The vision of Rust's traits for zero-cost abstraction"
 +++
 

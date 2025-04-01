@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2018-05-15
+path = "2018/05/15/Rust-turns-three.html"
 title = "Rust turns three"
-author = "Aaron Turon"
+authors = ["Aaron Turon"]
 description = "Three years ago today, the Rust community released Rust 1.0 to the world, with our initial vision of fearless systems programming."
 +++
 

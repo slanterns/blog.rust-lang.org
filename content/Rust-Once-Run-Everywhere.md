@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2015-04-24
+path = "2015/04/24/Rust-Once-Run-Everywhere.html"
 title = "Rust Once, Run Everywhere"
-author = "Alex Crichton"
+authors = ["Alex Crichton"]
 description = "Zero-cost and safe FFI in Rust"
 +++
 

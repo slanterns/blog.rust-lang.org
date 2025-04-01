@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2015-08-14
+path = "2015/08/14/Next-year.html"
 title = "Rust in 2016"
-author = "Nicholas Matsakis and Aaron Turon"
+authors = ["Nicholas Matsakis and Aaron Turon"]
 description = "Our vision for Rust's next year"
 +++
 

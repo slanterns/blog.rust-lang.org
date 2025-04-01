@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2016-05-13
+path = "2016/05/13/rustup.html"
 title = "Taking Rust everywhere with rustup"
-author = "Brian Anderson"
+authors = ["Brian Anderson"]
 description = "The rustup toolchain manager makes cross-compilation in Rust a breeze"
 +++
 

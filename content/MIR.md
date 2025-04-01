@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2016-04-19
+path = "2016/04/19/MIR.html"
 title = "Introducing MIR"
-author = "Niko Matsakis"
+authors = ["Niko Matsakis"]
 description = "The shift to use MIR in the compiler should unlock many exciting improvements."
 +++
 

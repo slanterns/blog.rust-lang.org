@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2023-01-09
+path = "2023/01/09/android-ndk-update-r25.html"
 title = "Updating the Android NDK in Rust 1.68"
-author = "Android Platform Team"
+authors = ["Android Platform Team"]
 description = "Modernizing Android support in Rust"
 +++
 

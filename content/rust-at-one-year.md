@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2016-05-16
+path = "2016/05/16/rust-at-one-year.html"
 title = "One year of Rust"
-author = "Aaron Turon"
+authors = ["Aaron Turon"]
 description = "Rust's trajectory one year after 1.0"
 +++
 

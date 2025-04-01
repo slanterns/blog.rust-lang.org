@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2015-04-17
+path = "2015/04/17/Enums-match-mutation-and-moves.html"
 title = "Mixing matching, mutation, and moves in Rust"
-author = "Felix S. Klock II"
+authors = ["Felix S. Klock II"]
 description = "A tour of matching and enums in Rust."
 +++
 

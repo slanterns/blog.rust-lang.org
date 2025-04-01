@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2020-06-10
+path = "2020/06/10/event-lineup-update.html"
 title = "2020 Event Lineup - Update"
-author = "The Rust Community Team"
+authors = ["The Rust Community Team"]
 description = "Join Rust events online"
 +++
 

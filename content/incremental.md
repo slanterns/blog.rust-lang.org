@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2016-09-08
+path = "2016/09/08/incremental.html"
 title = "Incremental Compilation"
-author = "Michael Woerister"
+authors = ["Michael Woerister"]
 description = "Incremental compilation for exponential joy and happiness."
 +++
 

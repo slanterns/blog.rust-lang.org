@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2020-09-10
+path = "2020/09/10/survey-launch.html"
 title = "Launching the 2020 State of Rust Survey"
-author = "The Rust Community Team"
+authors = ["The Rust Community Team"]
 description = "Hearing from you about the fifth year of Rust"
 +++
 

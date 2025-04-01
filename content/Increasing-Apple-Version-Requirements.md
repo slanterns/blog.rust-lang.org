@@ -1,8 +1,8 @@
 +++
-layout = "post"
 date = 2023-09-25
+path = "2023/09/25/Increasing-Apple-Version-Requirements.html"
 title = "Increasing the minimum supported Apple platform versions"
-author = "BlackHoleFox"
+authors = ["BlackHoleFox"]
 description = "Modernizing and improving Apple platform support for Rust"
 +++
 
